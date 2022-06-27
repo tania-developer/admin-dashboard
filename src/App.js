@@ -2,10 +2,18 @@ import React, {useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {FiSettings} from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
+
+import {Navbar, Footer, Sidebar, ThemeSettings} from './components'
+import {Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban,
+Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor} from './pages';
+
+import {useStateContext} from './contexts/ContextProvider'
+
 import './App.css'
 
 const App = () => {
-  const activeMenu = true;
+  const {activeMenu} = useStateContext();
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -21,18 +29,18 @@ const App = () => {
           </div>
           {activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
-              sidebar
+              <Sidebar/>
             </div>
           ) : (
             <div classname="w-0">
-              sidebar-no
+              <Sidebar/>
             </div>
           )}
           <div className={`dark:bg-main-bg bg-main-bg min-h-screen md:ml-72 w-full ${activeMenu ? 
             'md:ml-72' : 'flex-2'}`}>
             <div className="flex md:static bg-main-bg dark:bg-main-dark-bg 
             navbar w-full">
-              Navbar
+              <Navbar/>
             </div>
           </div>
           

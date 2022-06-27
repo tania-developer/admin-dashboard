@@ -1,9 +1,9 @@
 import React from 'react'
 
-function LineCharts() {
+function LineChart() {
   return (
     <div>LineCharts</div>
   )
 }
 
-export default LineCharts
+export default LineChart;
