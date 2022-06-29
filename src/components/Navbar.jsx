@@ -11,24 +11,39 @@ import {useStateContext} from '../contexts/ContextProvider';
 
 const NavButton = ({title, customFunc, icon, color, dotcolor}) => (
   <TooltipComponent content={title} position="BottomCenter">
-    <button type='button' onClick={customFunc} style={{color}} className='relative text-xl rounded-full p-3 hover:bg-light-gray'>
+    <button type='button' onClick={() => customFunc()} style={{color}} className='relative text-xl rounded-full p-3 hover:bg-light-gray'>
       <span style={{background: dotcolor}}
         className="absolute inline-flex rounded-full h-2 w-2 right-2 top-2">
-          {icon}
-        </span>
+      </span>
+      {icon}
+        
     </button>
   </TooltipComponent>
 )
 
 
 const Navbar = () =>{
-  const {activeMenu, setActiveMenu, handleClick} = useStateContext();
+  const {activeMenu, setActiveMenu, handleClick, isClicked, setIsClicked, screenSize, setScreenSize} = useStateContext();
 
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return() => window.removeEventListener('resize', handleResize);
+  },[]);
   
+  useEffect(() =>{
+    if(screenSize <= 900) {
+      setActiveMenu(false);
+    } else {
+      setActiveMenu(true);
+    }
+  },[screenSize]);
   return (
     <div className='flex justify-between p-2 md:ml-6 md:mr-6 relative'>
       <NavButton title='menu' 
-       customFunc={() => setActiveMenu((prevActiveMenu) =>!prevActiveMenu )} 
+       customFunc={() => setActiveMenu((prevActiveMenu) =>!prevActiveMenu)} 
        color='blue' 
        icon={<AiOutlineMenu/>}/>
 
@@ -42,10 +57,10 @@ const Navbar = () =>{
         <NavButton 
           title='Chat'
           dotcolor='#03c9d7'
-          customFunc={() => handleClick('cart')}
+          customFunc={() => handleClick('chat')}
           color='blue'
           icon={<BsChatLeft/>} />
-
+      
        <NavButton 
           title='Notification'
           dotcolor='#03c9d7'
@@ -68,10 +83,13 @@ const Navbar = () =>{
               </span>
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
-
             </div>
-
           </TooltipComponent>
+
+          {isClicked.cart && <Cart/>}
+          {isClicked.chat && <Chat/>}
+          {isClicked.notification && <Notification/>}
+          {isClicked.userProfile && <UserProfile/>}
        </div>
     </div>
   )
