@@ -32,7 +32,7 @@ const App = () => {
               <Sidebar/>
             </div>
           ) : (
-            <div classname="w-0">
+            <div className="w-0">
               <Sidebar/>
             </div>
           )}
@@ -43,13 +43,13 @@ const App = () => {
           }>
             <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
               <Navbar/>
-            </div>
+            
           </div>
           
           <div>
             <Routes>
-              <Route path="/" element="Ecommerce"/>
-              <Route path="/ecommerce" element="Ecommerce"/>
+              <Route path="/" element={(<Ecommerce />)}/>
+              <Route path="/ecommerce" element={(<Ecommerce />)}/>
 
               {/* pages */}
               <Route path="/orders" element="Orders"/>
@@ -72,6 +72,7 @@ const App = () => {
               <Route path='/pyramid' element="Pyramid"/>
               <Route path='/stacked' element="Stacked"/>
             </Routes>
+          </div>
           </div>
         </div>
       </BrowserRouter>
