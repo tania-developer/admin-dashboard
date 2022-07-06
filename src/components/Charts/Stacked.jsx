@@ -11,7 +11,7 @@ const Stacked=({width, height})=> {
         primaryYAxis={stackedPrimaryYAxis}
         width={width}
         height={height}
-        tooltip={{enabled: true}}
+        tooltip={{enable: true}}
         chartArea={{border: {width:0}}}
         // background='white'
         legendSettings={{background: 'white'}}
